@@ -1,10 +1,10 @@
 ## These functions provide the ability to calculate and cache the result of 
 ## the inversion of a matrix. Caching capabilities are provided to reduce 
-## the overhead of recalculating the inversion if the matrix has not changed 
-## since the prior invocation of cachedSolve.
+## the overhead of recalculating the inversion of a matrix if the matrix
+## has not changed since the prior invocation of cacheSolve.
 
-## MakeCacheMatrix creates functions which allow access and setting of the 
-## cached matrix
+## MakeCacheMatrix creates functions which allow access, setting, and change
+## detection of the cached matrix
 makeCacheMatrix <- function(x = matrix()) {
         m <- NULL
         changed <- FALSE
@@ -29,11 +29,10 @@ makeCacheMatrix <- function(x = matrix()) {
 
 
 ## CacheSolve accesses the cache to see if the cached matrix exists.
-## If the cached matrix exists it is compared agains the parameter
-## matrix to assure that the matrix content have not changed. If the
-## matrix contents have not changed the the cached inverse is returned
-## otherwise the imatrix inverse is calculated, stored in cache and
-## retured. 
+## If the cached matrix exists the function tests to see of the cached
+## matrix has been changed. If NOT changed then the cached matrix inversion
+## is returned. If the inversion has not been solved or if the matrix has
+## been changed then the matrix inversion is calculated and stored in cache.
 cacheSolve <- function(x, ...) {
     m <- x$getinv()
     if(!is.null(m) && !x$getChanged()) {
